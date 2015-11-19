@@ -21,8 +21,9 @@ import os,string
 from .models import *
 
 # clients
-userid_eval_clients = range(1, 161)
-userid_eval_impostors = range(161, 206)
+userid_training = range(1, 51)
+userid_eval_clients = range(51, 351)
+userid_eval_impostors = range(351, 401)
 
 def nodot(item):
   """Can be used to ignore hidden files, starting with the . character."""
@@ -30,8 +31,8 @@ def nodot(item):
 
 def add_clients(session, verbose):
   """Add clients to the  Biosecure DS2 Signature Global Features database."""
-  users_list = (userid_eval_clients, userid_eval_impostors)
-  group_choices = ('clientEval','impostorEval')
+  users_list = (userid_training, userid_eval_clients, userid_eval_impostors)
+  group_choices = ('world', 'clientEval','impostorEval')
   
   for g, group in enumerate(group_choices):
     for ctype in ['genuine', 'skilled']:
@@ -57,14 +58,14 @@ def add_files(session, imagedir, verbose):
       ctype = parts[2]
       shotid = int(parts[1])
       userid = ctype + '_%d' % int(parts[0])
-      if parts[2] == "skilled" and shotid <= 40:
+      if shotid <= 7:
         sessionid = 1
-      elif parts[2] == "skilled" and shotid > 40:
+      elif shotid <= 14:
         sessionid = 2
-      elif parts[2] == "genuine" and shotid <= 15:
-        sessionid = 1
-      elif parts[2] == "genuine" and shotid > 15:
-        sessionid = 2
+      elif shotid <= 21:
+        sessionid = 3
+      elif shotid <= 28:
+        sessionid = 4
       add_file(session, basename, userid, shotid, sessionid)
 
 
@@ -72,14 +73,14 @@ def add_protocols(session, verbose):
   """Adds protocols"""
 
   # 1. DEFINITIONS
-  enroll_shots = range(1,6)
-  client_probe_shots = range(6,31)
-  skilled_impostor_probe_shots = range(31,51)
+  enroll_shots = [1, 2, 6, 7]
+  client_probe_shots = [8, 9, 13, 14, 15, 16, 20, 21, 22, 23, 27, 28]
+  skilled_impostor_probe_shots = [3, 4, 5, 10, 11, 12, 17, 18, 19, 24, 25, 26]
   random_impostor_probe_shots = [1]
   protocols = ['skilledImpostors', 'randomImpostors']
 
   # 2. ADDITIONS TO THE SQL DATABASE
-  protocolPurpose_list = [('eval', 'enrol'), ('eval', 'probe')]
+  protocolPurpose_list = [('world', 'train'), ('eval', 'enrol'), ('eval', 'probe')]
   for proto in protocols:
     p = Protocol(proto)
     # Add protocol
@@ -100,13 +101,19 @@ def add_protocols(session, verbose):
       session.refresh(pu)
 
       # Add files attached with this protocol purpose
-      if(key == 0): #test enrol
+      if(key == 0): # world
+        q = session.query(File).join(Client).filter(and_(Client.sgroup == 'world', Client.stype == 'genuine'))
+        for k in q:
+          if verbose>1: print("    Adding protocol file '%s'..." % (k.path))
+          pu.files.append(k)
+      
+      elif(key == 1): #test enrol
         q = session.query(File).join(Client).filter(and_(Client.sgroup == 'clientEval', Client.stype == 'genuine')).filter(File.shot_id.in_(enroll_shots))
         for k in q:
           if verbose>1: print("    Adding protocol file '%s'..." % (k.path))
           pu.files.append(k)
 
-      elif(key == 1): #test probe
+      elif(key == 2): #test probe
         q = session.query(File).join(Client).filter(and_(Client.sgroup == 'clientEval', Client.stype == 'genuine')).filter(File.shot_id.in_(client_probe_shots))
         for k in q:
           if verbose>1: print("    Adding protocol file '%s'..." % (k.path))

@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""The ATVS Biosecure DS2 Signature Global Features database
+"""The BiosecurID Signature Global Features database
 """
 
 from .query import Database

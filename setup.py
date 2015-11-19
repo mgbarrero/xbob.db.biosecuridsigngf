@@ -24,8 +24,8 @@ setup(
 
     name='xbob.db.atvsbiosecureds2signgf',
     version='0.0.1',
-    description='ATVS-Biosecure DS2 Signature Global Features Database Access API for Bob',
-    url='http://github.com/mgbarrero/xbob.db.atvsbiosecureds2signgf',
+    description='BiosecurID Signature Global Features Database Access API for Bob',
+    url='http://github.com/mgbarrero/xbob.db.biosecuridsigngf',
     license='GPLv3',
     author='Marta Gomez-Barrero',
     author_email='marta.barrero@uam.es',
@@ -52,12 +52,12 @@ setup(
 
       # declare database to bob
       'bob.db': [
-        'atvskeystroke = xbob.db.atvsbiosecureds2signgf.driver:Interface',
+        'biosecuridsigngf = xbob.db.biosecuridsigngf.driver:Interface',
         ],
 
       # declare tests to bob
       'bob.test': [
-        'atvskeystroke = xbob.db.atvsbiosecureds2signgf.test:ATVSBiosecureDS2SignGFDatabaseTest',
+        'atvskeystroke = xbob.db.biosecuridsigngf.test:BiosecurIDSignGFDatabaseTest',
         ],
 
       },

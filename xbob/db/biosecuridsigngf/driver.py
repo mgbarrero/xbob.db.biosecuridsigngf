@@ -115,7 +115,7 @@ def path(args):
 class Interface(BaseInterface):
 
   def name(self):
-    return 'biosecureds2signgf'
+    return 'biosecuridsigngf'
 
   def version(self):
     import pkg_resources  # part of setuptools
@@ -135,7 +135,7 @@ class Interface(BaseInterface):
     from . import __doc__ as docs
 
     subparsers = self.setup_parser(parser,
-        " Biosecure DS2 Signature Global Features database", docs)
+        " BiosecurID Signature Global Features database", docs)
 
     # example: get the "create" action from a submodule
     from .create import add_command as create_command

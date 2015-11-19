@@ -41,7 +41,7 @@ class Client(Base):
   # Key identifier for the client
   id = Column(String(100), primary_key=True)
   subid = Column(Integer)
-  group_choices = ('clientEval','impostorEval')
+  group_choices = ('world', 'clientEval','impostorEval')
   sgroup = Column(Enum(*group_choices)) # do NOT use group (SQL keyword)
   type_choices = ('genuine', 'skilled')
   stype = Column(Enum(*type_choices)) # do NOT use type
@@ -84,7 +84,7 @@ class File(Base, xbob.db.verification.utils.File):
 
 
 class Protocol(Base):
-  """ Biosecure DS2 Signature Global Features protocols"""
+  """ BiosecurID Signature Global Features protocols"""
 
   __tablename__ = 'protocol'
 
@@ -101,7 +101,7 @@ class Protocol(Base):
 
 
 class ProtocolPurpose(Base):
-  """ Biosecure DS2 Signature Global Features protocol purposes"""
+  """ BiosecurID Signature Global Features protocol purposes"""
 
   __tablename__ = 'protocolPurpose'
 

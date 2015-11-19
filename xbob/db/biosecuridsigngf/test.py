@@ -20,56 +20,59 @@ import os, sys
 import unittest
 from .query import Database
 
-class BiosecureDS2SignGFDatabaseTest(unittest.TestCase):
+class BiosecurIDSignGFDatabaseTest(unittest.TestCase):
 
     def test_clients(self):
       db = Database()
-      assert len(db.groups()) == 1
-      assert len(db.clients()) == 410
-      assert len(db.clients(groups='eval')) == 205
-      assert len(db.clients(groups='genuine')) == 205
-      assert len(db.clients(groups='skilled')) == 205
-      assert len(db.models()) == 205
-      assert len(db.models(groups='eval')) == 205
-      assert len(db.models(groups='genuine')) == 205
+      assert len(db.groups()) == 2
+      assert len(db.clients()) == 750
+      assert len(db.clients(groups='world')) == 50
+      assert len(db.clients(groups='eval')) == 350
+      assert len(db.clients(groups='genuine')) == 350
+      assert len(db.clients(groups='skilled')) == 350
+      assert len(db.models()) == 350
+      assert len(db.models(groups='eval')) == 350
+      assert len(db.models(groups='genuine')) == 350
 
 
     def test_objects(self):
       db = Database()
-      assert len(db.objects()) == 8045
+      assert len(db.objects()) == 9250
       # skilled Forgeries
-      assert len(db.objects(protocol='skilledImpostors')) == 8000
-      assert len(db.objects(protocol='skilledImpostors', groups='eval')) == 8000
-      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='enrol')) == 800
+      assert len(db.objects(protocol='skilledImpostors')) == 9200
+      assert len(db.objects(protocol='skilledImpostors', groups='world')) == 800
+      assert len(db.objects(protocol='skilledImpostors', groups='eval')) == 8400
+      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='enrol')) == 1200
       assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe')) == 7200
-      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', classes='client')) == 4000
-      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', classes='skilledImpostor')) == 3200
-      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1])) == 45
-      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1], classes='client')) == 25
-      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1], classes='skilledImpostor')) == 20
-      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1,2])) == 90
-      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1,2], classes='client')) == 50
-      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1,2], classes='skilledImpostor')) == 40
+      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', classes='client')) == 3600
+      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', classes='skilledImpostor')) == 3600
+      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1])) == 24
+      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1], classes='client')) == 12
+      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1], classes='skilledImpostor')) == 12
+      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1,2])) == 48
+      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1,2], classes='client')) == 24
+      assert len(db.objects(protocol='skilledImpostors', groups='eval', purposes='probe', model_ids=[1,2], classes='skilledImpostor')) == 24
       
       # random Forgeries 
-      assert len(db.objects(protocol='randomImpostors')) == 4845
-      assert len(db.objects(protocol='randomImpostors', groups='eval')) == 4845
-      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='enrol')) == 800
-      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe')) == 4045
-      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', classes='client')) == 4000
-      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', classes='randomImpostor')) == 45
-      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1])) == 70
-      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1], classes='client')) == 25
-      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1], classes='randomImpostor')) == 45
-      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1,2])) == 95
-      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1,2], classes='client')) == 50
-      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1,2], classes='randomImpostor')) == 45
+      assert len(db.objects(protocol='randomImpostors')) == 5650
+      assert len(db.objects(protocol='randomImpostors', groups='world')) == 800
+      assert len(db.objects(protocol='randomImpostors', groups='eval')) == 4850
+      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='enrol')) == 1200
+      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe')) == 3650
+      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', classes='client')) == 3600
+      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', classes='randomImpostor')) == 50
+      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1])) == 62
+      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1], classes='client')) == 12
+      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1], classes='randomImpostor')) == 50
+      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1,2])) == 74
+      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1,2], classes='client')) == 24
+      assert len(db.objects(protocol='randomImpostors', groups='eval', purposes='probe', model_ids=[1,2], classes='randomImpostor')) == 50
 
 
     def test_driver_api(self):
 
       from bob.db.script.dbmanage import main
-      assert main('biosecureds2signgf dumplist --self-test'.split()) == 0
-      assert main('biosecureds2signgf checkfiles --self-test'.split()) == 0
-      assert main('biosecureds2signgf reverse 1_1_genuine --self-test'.split()) == 0
-      assert main('biosecureds2signgf path 37 --self-test'.split()) == 0
+      assert main('biosecuridsigngf dumplist --self-test'.split()) == 0
+      assert main('biosecuridsigngf checkfiles --self-test'.split()) == 0
+      assert main('biosecuridsigngf reverse 1_1_genuine --self-test'.split()) == 0
+      assert main('biosecuridsigngf path 37 --self-test'.split()) == 0

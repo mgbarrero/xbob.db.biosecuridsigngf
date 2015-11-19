@@ -198,6 +198,15 @@ class Database(xbob.db.verification.utils.SQLiteDatabase,xbob.db.verification.ut
     # Now query the database
     retval = []
 
+    if 'world' in groups:
+      q = self.query(File).join(Client).join((ProtocolPurpose, File.protocolPurposes)).join(Protocol).\
+            filter(Client.sgroup == 'world').\
+            filter(and_(Protocol.name.in_(protocol), ProtocolPurpose.sgroup == 'world'))
+      if model_ids:
+        q = q.filter(Client.id.in_(model_ids))
+      q = q.order_by(File.client_id, File.session_id, File.shot_id)
+      retval += list(q)
+    
     if ('eval' in groups):
       if('enrol' in purposes):
         q = self.query(File).join(Client).join((ProtocolPurpose, File.protocolPurposes)).join(Protocol).\

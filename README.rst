@@ -1,8 +1,8 @@
-===================================================
-Biosecure DS2 Signature Global Features Database
-===================================================
+===============================================
+BiosecurID Signature Global Features Database
+===============================================
 
-This package contains the access API and descriptions for the `Biosecure DS2
+This package contains the access API and descriptions for the `BiosecurID
 Signature Global Features Database`_.
 
 You would normally not install this package unless you are maintaining it. What
@@ -44,11 +44,11 @@ script)::
 
     install_requires=[
       ...
-      "xbob.db.biosecureds2signgf",
+      "xbob.db.biosecuridsigngf",
     ],
 
 Proceed normally with your ``boostrap/buildout`` steps and you should be all
-set. That means you can now import the ``xbob.db.biosecureds2signgf`` namespace into your scripts.
+set. That means you can now import the ``xbob.db.biosecuridsigngf`` namespace into your scripts.
 
 Modify your buildout.cfg and download from git
 ==============================================
@@ -64,8 +64,8 @@ lines::
   auto-checkout = *
   eggs = bob
          ...
-         xbob.db.biosecureds2signgf
+         xbob.db.biosecuridsigngf
 
   [sources]
-  xbob.db.atvskeystroke = git https://github.com/mgbarrero/xbob.db.biosecureds2signgf.git
+  xbob.db.biosecuridsigngf = git https://github.com/mgbarrero/xbob.db.biosecuridsigngf.git
   ...

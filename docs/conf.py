@@ -68,7 +68,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'ATVS Biosecure DS2 Signature Global Features
+project = u'BiosecurID Signature Global Features
  Database (Bob API)'
 import time
 copyright = u'%s, ' % time.strftime('%Y')
@@ -78,7 +78,7 @@ copyright = u'%s, ' % time.strftime('%Y')
 # built documents.
 #
 # The short X.Y version.
-from bob.db.atvsbiosecureds2signgf.driver import Interface
+from bob.db.biosecuridsigngf.driver import Interface
 version = Interface().version()
 # The full version, including alpha/beta/rc tags.
 release = version
@@ -245,7 +245,7 @@ rst_epilog = ''
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'bob', u'ATVS Keystroke Database (Bob API) Documentation', [u''], 1)
+    ('index', 'bob', u'BiosecurID Signature Global Features Database (Bob API) Documentation', [u''], 1)
 ]
 
 
